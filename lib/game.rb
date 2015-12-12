@@ -1,9 +1,7 @@
 require_relative 'world'
 require_relative 'enemy'
 require_relative 'space_ship'
-require_relative 'console_game_displayer'
 require_relative 'keyboard_input_handler'
-
 
 class Game
   attr_reader :world, :displayer
@@ -15,13 +13,12 @@ class Game
   }
 
   def initialize opts = {}
-    @displayer        = opts.fetch(:displayer, default_displayer)
+    @displayer        = opts.fetch(:displayer)
+    @input_handler    = opts.fetch(:input_handler)
     @world            = opts.fetch(:world, default_world)
     @displayer.world  = @world
-    @input_handler    = opts.fetch(:input_handler, default_input_handler)
     @player_spaceship = default_spaceship
-    @an_enemy         = Enemy.new(80, @player_spaceship.anchor_y)
-    @world.objects    = [ @player_spaceship, @an_enemy ]
+    @world.register_objects( [ @player_spaceship ] )
   end
 
   def start
@@ -39,11 +36,9 @@ class Game
       displayer.game_tick
       world.game_tick
       process_user_action
-      sleep(0.01)
+      sleep(0.007)
     end
   end
-
-  private
 
   def process_user_action
     case @input_handler.get_player_action
@@ -66,10 +61,6 @@ class Game
     World.new(displayer.world_width, displayer.world_height)
   end
 
-  def default_displayer
-    @displayer = ConsoleGameDisplayer.new
-  end
-
   def default_spaceship
     SpaceShip.new(
       (@world.width * (10.0/100)).ceil,  # Starting position relative to world size
@@ -77,10 +68,4 @@ class Game
       SPACESHIP_CHAR_MAP
     )
   end
-
-  def default_input_handler
-    KeyboardInputHandler.new
-  end
-
-
 end

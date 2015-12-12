@@ -1,4 +1,6 @@
 require_relative 'lib/game'
+require_relative 'lib/console_game_displayer'
+require_relative 'lib/keyboard_input_handler'
 
 class SpaceShooter
   attr_reader :game
@@ -14,7 +16,10 @@ class SpaceShooter
   private
 
   def create_game
-    Game.new
+    Game.new(
+      displayer: ConsoleGameDisplayer.new,
+      input_handler: KeyboardInputHandler.new
+    )
   end
 
 end

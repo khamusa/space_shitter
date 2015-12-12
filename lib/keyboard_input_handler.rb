@@ -11,6 +11,8 @@ class KeyboardInputHandler
     action_from_key(Curses.getch)
   end
 
+  private
+
   def action_from_key(key)
     case key
       when Curses::Key::LEFT
