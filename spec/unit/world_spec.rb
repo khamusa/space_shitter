@@ -18,16 +18,31 @@ describe World do
   end
 
   describe '#game_tick' do
-    it 'calls #update on every registered object' do
+    it 'calls #update with tick count on every registered object' do
       spaceship_1 = double
       spaceship_2 = double
 
       allow(a_world).to receive(:garbage_collect!)
 
-      expect(spaceship_1).to receive(:update).and_return(true)
-      expect(spaceship_2).to receive(:update).and_return(true)
+      expect(spaceship_1).to receive(:update).with(0).and_return(true)
+      expect(spaceship_2).to receive(:update).with(0).and_return(true)
 
       a_world.register_objects([spaceship_1, spaceship_2])
+      a_world.game_tick
+    end
+
+    it 'increments the tick counter' do
+      spaceship_1 = double
+
+      allow(a_world).to receive(:garbage_collect!)
+
+      expect(spaceship_1).to receive(:update).with(0).and_return(true)
+      expect(spaceship_1).to receive(:update).with(1).and_return(true)
+      expect(spaceship_1).to receive(:update).with(2).and_return(true)
+
+      a_world.register_objects([spaceship_1])
+      a_world.game_tick
+      a_world.game_tick
       a_world.game_tick
     end
   end

@@ -12,7 +12,7 @@ describe Bullet do
     it 'moves the bullet one character to the right' do
       b = Bullet.new(double, 0, 0)
 
-      b.update
+      b.update(1)
       expect(b.anchor_x).to eq(1)
       expect(b.anchor_y).to eq(0)
     end
@@ -20,7 +20,7 @@ describe Bullet do
     it 'moves the bullet according to the speed parameter' do
       b = Bullet.new(double, 0, 0, speed: 3)
 
-      b.update
+      b.update(2)
       expect(b.anchor_x).to eq(3)
       expect(b.anchor_y).to eq(0)
     end
