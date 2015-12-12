@@ -23,6 +23,7 @@ GEM
       rspec-support (~> 3.4.0)
     rspec-support (3.4.1)
     slop (3.6.0)
+    timecop (0.8.0)
 
 PLATFORMS
   ruby
@@ -31,6 +32,7 @@ DEPENDENCIES
   curses
   pry
   rspec (~> 3.0)
+  timecop
 
 BUNDLED WITH
    1.10.6

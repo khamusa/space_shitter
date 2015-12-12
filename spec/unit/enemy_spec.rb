@@ -16,12 +16,12 @@ describe Enemy do
   end
 
   describe '#update' do
-    it 'moves the enemy to the left' do
-      e = Enemy.new(10, 20)
+    it 'moves the enemy' do
+      e = Enemy.new(10, 20, nil, hor_speed: -1)
 
       e.update(1)
 
-      expect(e.anchor_x).to eq(9.75)
+      expect(e.anchor_x).to eq(9)
       expect(e.anchor_y).to eq(20)
     end
 
@@ -31,8 +31,18 @@ describe Enemy do
       e.update(1)
       expect(e.anchor_x).to eq(9.5)
 
-      e.update(2)
+      e.update(1)
       expect(e.anchor_x).to eq(9)
+    end
+
+    it 'moves the enemy proportionally to the amount of time passed' do
+      e = Enemy.new(10, 20, nil, hor_speed: -0.5)
+
+      e.update(0.5)
+      expect(e.anchor_x).to eq(9.75)
+
+      e.update(0.1)
+      expect(e.anchor_x).to eq(9.7)
     end
   end
 end

@@ -10,7 +10,7 @@ describe Bullet do
 
   describe '#update' do
     it 'moves the bullet one character to the right' do
-      b = Bullet.new(double, 0, 0)
+      b = Bullet.new(double, 0, 0, hor_speed: 1)
 
       b.update(1)
       expect(b.anchor_x).to eq(1)
@@ -20,9 +20,19 @@ describe Bullet do
     it 'moves the bullet according to the speed parameter' do
       b = Bullet.new(double, 0, 0, hor_speed: 3)
 
-      b.update(2)
+      b.update(1)
       expect(b.anchor_x).to eq(3)
       expect(b.anchor_y).to eq(0)
+    end
+
+    it 'moves the bullet proportionally to the amount of time passed' do
+      b = Bullet.new(double, 0, 0, hor_speed: 3)
+
+      b.update(0.5)
+      expect(b.anchor_x).to eq(1.5)
+
+      b.update(0.1)
+      expect(b.anchor_x).to eq(1.8)
     end
   end
 

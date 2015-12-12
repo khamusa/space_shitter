@@ -17,7 +17,8 @@ class Game
     @world            = opts.fetch(:world, default_world)
     @displayer.world  = @world
     @player_spaceship = default_spaceship
-    @world.register_objects( [ @player_spaceship ] )
+    test_enemy = Enemy.new(@world.width - 10, 20, { [ 0, 0 ] => "<===>"})
+    @world.register_objects( [ @player_spaceship, test_enemy ] )
   end
 
   def start

@@ -7,15 +7,15 @@ class Bullet
 
   def initialize(fired_by, anchor_x, anchor_y, opts = {})
     @fired_by     = fired_by
-    @speed        = opts.fetch(:hor_speed, 1)
+    @speed        = opts.fetch(:hor_speed, 30)
     self.char_map = { [0, 0] => '-' }
 
     self.anchor_x = anchor_x
     self.anchor_y = anchor_y
   end
 
-  def update(current_tick)
-    move(speed, 0)
+  def update(delta_t)
+    move(delta_t * speed, 0)
   end
 
   def collided_with?(other_object)

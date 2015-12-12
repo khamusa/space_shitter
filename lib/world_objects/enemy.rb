@@ -10,13 +10,13 @@ class Enemy
       [-1, 1] => "XXX"
     }
 
-    @hor_speed = options.fetch(:hor_speed, -0.25)
+    @hor_speed = options.fetch(:hor_speed, -10)
 
     self.anchor_x     = anchor_x
     self.anchor_y     = anchor_y
   end
 
-  def update(current_tick)
-    self.anchor_x += @hor_speed
+  def update(delta_t)
+    move( @hor_speed*delta_t, 0 )
   end
 end

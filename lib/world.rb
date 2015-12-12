@@ -1,14 +1,14 @@
 class World
 
-  attr_reader :width, :height, :current_tick
-  attr_accessor :objects
+  attr_reader :width, :height
+  attr_accessor :objects, :current_time
 
   def initialize(width, height)
     @width        = width
     @height       = height
     @objects      = []
 
-    @current_tick = 0
+    @current_time = Time.now
   end
 
   def register_objects(new_objects)
@@ -16,10 +16,8 @@ class World
   end
 
   def game_tick
-    objects.each { |o| o.update(current_tick) }
+    update_objects
     garbage_collect!
-
-    @current_tick += 1
   end
 
   def garbage_collect!
@@ -38,6 +36,13 @@ class World
   end
 
   private
+
+  def update_objects
+    now = Time.now
+    objects.each { |o| o.update(now - current_time) }
+
+    self.current_time = now
+  end
 
   def find_collisions?(an_obj)
     objects.select do |another|

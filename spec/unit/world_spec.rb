@@ -1,6 +1,8 @@
 require_relative '../../lib/world'
 require_relative '../../lib/world_objects/space_ship'
 
+require 'timecop'
+
 describe World do
   let(:a_world) { World.new 220, 560 }
 
@@ -18,32 +20,50 @@ describe World do
   end
 
   describe '#game_tick' do
-    it 'calls #update with tick count on every registered object' do
-      spaceship_1 = double
-      spaceship_2 = double
 
-      allow(a_world).to receive(:garbage_collect!)
+    it 'calls #update_objects' do
+      expect(a_world).to receive(:update_objects).once
 
-      expect(spaceship_1).to receive(:update).with(0).and_return(true)
-      expect(spaceship_2).to receive(:update).with(0).and_return(true)
-
-      a_world.register_objects([spaceship_1, spaceship_2])
       a_world.game_tick
     end
 
-    it 'increments the tick counter' do
+    it 'calls the #garbage_collect!' do
+      expect(a_world).to receive(:garbage_collect!).once
+
+      a_world.game_tick
+    end
+
+  end
+
+  describe '#update_objects' do
+
+    it 'is a private method' do
+      expect { a_world.update_objects }.to raise_error(NoMethodError)
+    end
+
+    it 'calls #update on every object passing time diff since last call' do
       spaceship_1 = double
+      spaceship_2 = double
 
-      allow(a_world).to receive(:garbage_collect!)
+      a_world.current_time = Time.now
+      a_world.register_objects([spaceship_1, spaceship_2])
 
-      expect(spaceship_1).to receive(:update).with(0).and_return(true)
-      expect(spaceship_1).to receive(:update).with(1).and_return(true)
-      expect(spaceship_1).to receive(:update).with(2).and_return(true)
+      Timecop.freeze(a_world.current_time + 1) do
+        expect(spaceship_1).to receive(:update).with(1).and_return(true)
+        expect(spaceship_2).to receive(:update).with(1).and_return(true)
 
-      a_world.register_objects([spaceship_1])
-      a_world.game_tick
-      a_world.game_tick
-      a_world.game_tick
+        a_world.send(:update_objects)
+      end
+    end
+
+    it 'saves a new current_time' do
+      a_world.current_time = initial_time = Time.now
+
+      Timecop.freeze(initial_time + 1) do
+        a_world.send(:update_objects)
+
+        expect(a_world.current_time).to eq(initial_time + 1)
+      end
     end
   end
 
