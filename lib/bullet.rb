@@ -20,7 +20,8 @@ class Bullet
 
   def collided_with?(other_object)
     super &&
-    other_object != fired_by
+    other_object != fired_by &&
+    !other_object.kind_of?(self.class)
   end
 
 end
