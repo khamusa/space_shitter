@@ -1,4 +1,4 @@
-require_relative '../../lib/space_ship'
+require_relative '../../lib/world_objects/space_ship'
 
 describe SpaceShip do
   let(:spaceship) { SpaceShip.new 10, 20, { [0, 0] => 'X' } }

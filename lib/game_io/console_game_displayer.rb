@@ -68,7 +68,7 @@ class ConsoleGameDisplayer
     @menu_win.setpos(2, 1)
     @menu_win.addstr "World size is #{world_width}x#{world_height}"
     @menu_win.setpos(3, 1)
-    @menu_win.addstr "Press ctrl + c to quit"
+    @menu_win.addstr "Current tick is #{world.current_tick}"
   end
 
   def draw_objects(drawable_objects)

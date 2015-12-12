@@ -1,4 +1,4 @@
-require_relative 'world_object'
+require_relative '../world_object'
 
 class Bullet
   include WorldObject
@@ -7,7 +7,7 @@ class Bullet
 
   def initialize(fired_by, anchor_x, anchor_y, opts = {})
     @fired_by     = fired_by
-    @speed        = opts.fetch(:speed, 1)
+    @speed        = opts.fetch(:hor_speed, 1)
     self.char_map = { [0, 0] => '-' }
 
     self.anchor_x = anchor_x

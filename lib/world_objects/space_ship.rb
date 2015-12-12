@@ -1,5 +1,5 @@
 require_relative 'bullet'
-require_relative 'world_object'
+require_relative '../world_object'
 
 class SpaceShip
   include WorldObject

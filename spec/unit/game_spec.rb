@@ -1,5 +1,5 @@
 require_relative '../../lib/game'
-require_relative '../../lib/space_ship'
+require_relative '../../lib/world_objects/space_ship'
 
 describe Game do
   let(:a_displayer) do

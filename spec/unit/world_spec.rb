@@ -1,5 +1,5 @@
 require_relative '../../lib/world'
-require_relative '../../lib/space_ship'
+require_relative '../../lib/world_objects/space_ship'
 
 describe World do
   let(:a_world) { World.new 220, 560 }

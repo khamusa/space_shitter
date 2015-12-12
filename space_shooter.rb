@@ -1,6 +1,6 @@
 require_relative 'lib/game'
-require_relative 'lib/console_game_displayer'
-require_relative 'lib/keyboard_input_handler'
+require_relative 'lib/game_io/console_game_displayer'
+require_relative 'lib/game_io/keyboard_input_handler'
 
 class SpaceShooter
   attr_reader :game

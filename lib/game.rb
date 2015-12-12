@@ -1,7 +1,6 @@
 require_relative 'world'
-require_relative 'enemy'
-require_relative 'space_ship'
-require_relative 'keyboard_input_handler'
+require_relative 'world_objects/enemy'
+require_relative 'world_objects/space_ship'
 
 class Game
   attr_reader :world, :displayer
