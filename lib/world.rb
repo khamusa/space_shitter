@@ -18,6 +18,8 @@ class World
   def game_tick
     objects.each { |o| o.update(current_tick) }
     garbage_collect!
+
+    @current_tick += 1
   end
 
   def garbage_collect!

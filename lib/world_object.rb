@@ -46,7 +46,7 @@ module WorldObject
         bounding_box.min_x + anchor_x,
         bounding_box.min_y + anchor_y,
         bounding_box.max_x + anchor_x,
-        bounding_box.max_y + anchor_y,
+        bounding_box.max_y + anchor_y
       )
     end
 
