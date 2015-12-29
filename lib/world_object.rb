@@ -7,6 +7,10 @@ module WorldObject
       attr_accessor :char_map, :anchor_x, :anchor_y
     end
 
+    def update(delta_t)
+      # noop
+    end
+
     def move(offset_x, offset_y)
       self.anchor_x = anchor_x + offset_x
       self.anchor_y = anchor_y + offset_y

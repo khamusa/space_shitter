@@ -11,9 +11,6 @@ class SpaceShip
   end
 
   def fire!
-    [ Bullet.new(self, anchor_x, anchor_y) ]
+    [ Bullet.new(anchor_x, anchor_y, fired_by: self) ]
   end
-
-  def update(current_tick); true; end
-
 end

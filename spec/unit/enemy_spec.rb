@@ -10,14 +10,18 @@ describe Enemy do
 
   it 'has a char map' do
     char_map = double
-    e = Enemy.new(10, 20, char_map)
+    e = Enemy.new(10, 20, char_map: char_map)
 
     expect(e.char_map).to eq char_map
   end
 
+  it 'has a horizontal speed' do
+    expect { Enemy.new(10, 20).hor_speed }.not_to raise_error
+  end
+
   describe '#update' do
     it 'moves the enemy' do
-      e = Enemy.new(10, 20, nil, hor_speed: -1)
+      e = Enemy.new(10, 20, hor_speed: -1)
 
       e.update(1)
 
@@ -26,7 +30,7 @@ describe Enemy do
     end
 
     it 'moves the enemy at a speed specified in the initializing parameters' do
-      e = Enemy.new(10, 20, nil, hor_speed: -0.5)
+      e = Enemy.new(10, 20, hor_speed: -0.5)
 
       e.update(1)
       expect(e.anchor_x).to eq(9.5)
@@ -36,7 +40,7 @@ describe Enemy do
     end
 
     it 'moves the enemy proportionally to the amount of time passed' do
-      e = Enemy.new(10, 20, nil, hor_speed: -0.5)
+      e = Enemy.new(10, 20, hor_speed: -0.5)
 
       e.update(0.5)
       expect(e.anchor_x).to eq(9.75)

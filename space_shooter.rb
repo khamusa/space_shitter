@@ -1,3 +1,5 @@
+$LOAD_PATH.unshift File.join(File.dirname(__FILE__), 'lib')
+
 require_relative 'lib/game'
 require_relative 'lib/game_io/console_game_displayer'
 require_relative 'lib/game_io/keyboard_input_handler'
