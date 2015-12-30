@@ -2,7 +2,11 @@ require 'world_object'
 
 describe WorldObject do
 
-  let(:dummy_klass) { Class.new { include WorldObject }}
+  let(:dummy_klass) do
+    Class.new do
+      include WorldObject
+    end
+  end
 
   describe "#initialize" do
     it 'accepts 3 parameters' do
@@ -65,6 +69,24 @@ describe WorldObject do
 
       expect(an_object.anchor_x).to eq 2
       expect(an_object.anchor_y).to eq 4
+    end
+  end
+
+  describe '#obj_left_viewport!' do
+    let(:an_instance) { an_instance = dummy_klass.new(0,0) }
+    it 'is defined' do
+      expect { an_instance.obj_left_viewport! }.
+        not_to raise_error(NoMethodError)
+    end
+
+    it 'accepts a direction parameter' do
+      expect { an_instance.obj_left_viewport!(:left) }.
+        not_to raise_error(ArgumentError)
+    end
+
+    it 'destroys itself by default' do
+      expect(an_instance).to receive(:destroy!)
+      an_instance.obj_left_viewport!(:left)
     end
   end
 end

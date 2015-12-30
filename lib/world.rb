@@ -29,8 +29,6 @@ class World
         collisions.each(&:destroy!)
       end
 
-      obj.destroy! if obj_left_viewport?(obj)
-
       !obj.destroyed?
     end
   end
@@ -38,10 +36,26 @@ class World
   private
 
   def update_objects
-    now = Time.now
-    objects.each { |o| o.update(now - current_time) }
+    now       = Time.now
+    time_diff = now - current_time
+
+    objects.each do |o|
+      update_object(o, time_diff)
+
+      test_object_leaving_viewport(o)
+    end
 
     self.current_time = now
+  end
+
+  def test_object_leaving_viewport(o)
+    leave_from = obj_left_viewport?(o)
+
+    o.obj_left_viewport!(leave_from) if leave_from
+  end
+
+  def update_object(o, time_diff)
+    o.update(time_diff)
   end
 
   def find_collisions?(an_obj)
@@ -54,10 +68,10 @@ class World
   def obj_left_viewport?(obj)
     bbox = obj.positioned_bounding_box
 
-    bbox.min_x <= 0     ||
-    bbox.max_x > width  ||
+    bbox.min_x < 0      && :left  ||
+    bbox.max_x > width  && :right ||
 
-    bbox.min_y <= 0     ||
-    bbox.max_y > height
+    bbox.min_y < 0     && :top   ||
+    bbox.max_y > height && :bottom
   end
 end
