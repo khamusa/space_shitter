@@ -1,13 +1,7 @@
 require_relative '../../lib/world_objects/space_ship'
 
 describe SpaceShip do
-  let(:spaceship) { SpaceShip.new 10, 20, { [0, 0] => 'X' } }
-
-  it 'is a char-drawable entity' do
-    expect(spaceship.anchor_x).to eq(10)
-    expect(spaceship.anchor_y).to eq(20)
-    expect(spaceship.char_map).to eq( { [0, 0] => 'X'})
-  end
+  let(:spaceship) { SpaceShip.new 10, 20, char_map: { [0, 0] => 'Y' } }
 
   describe '#move' do
     it 'moves the spaceship by changing anchor_x and anchor_y' do

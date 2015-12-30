@@ -4,7 +4,22 @@ module WorldObject
 
   def self.included(base)
     base.class_eval do
-      attr_accessor :char_map, :anchor_x, :anchor_y
+      attr_accessor :char_map
+      attr_writer :anchor_x, :anchor_y
+    end
+
+    def anchor_x
+      @anchor_x.round
+    end
+
+    def anchor_y
+      @anchor_y.round
+    end
+
+    def initialize(anchor_x, anchor_y, options = {})
+      @anchor_x = anchor_x
+      @anchor_y = anchor_y
+      self.char_map = options.fetch(:char_map, {[0,0] => "X"})
     end
 
     def update(delta_t)
@@ -12,8 +27,10 @@ module WorldObject
     end
 
     def move(offset_x, offset_y)
-      self.anchor_x = anchor_x + offset_x
-      self.anchor_y = anchor_y + offset_y
+      # We avoid using the accessors as we do not want
+      # the anchors to be rounded to closest integer
+      @anchor_x = @anchor_x + offset_x
+      @anchor_y = @anchor_y + offset_y
     end
 
     def char_map

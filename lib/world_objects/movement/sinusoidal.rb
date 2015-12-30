@@ -6,16 +6,14 @@ module WorldObjects; module Movement
 
     def self.included(base)
       base.class_eval do
-        attr_writer :amplitude, :frequency
+        attr_accessor :amplitude, :frequency
       end
     end
 
-    def amplitude
-      @amplitude || 1
-    end
-
-    def frequency
-      @frequency || 1
+    def initialize(anchor_x, anchor_y, options = {})
+      super
+      self.amplitude = options.fetch(:amplitude, 1)
+      self.frequency = options.fetch(:frequency, 1)
     end
 
     def update(delta_t)
@@ -23,7 +21,7 @@ module WorldObjects; module Movement
 
       @initial_y         ||= anchor_y
       @accumulated_delta ||= 0
-      # By fetching the reminder we ensure the accumulated delta doesn't grow
+      # By fetching the remainder we ensure the accumulated delta doesn't grow
       # inadvertendly
       @accumulated_delta   = (@accumulated_delta + delta_t) % (2*Math::PI)
 

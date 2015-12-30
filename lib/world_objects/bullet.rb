@@ -1,4 +1,5 @@
-require_relative '../world_object'
+require 'world_object'
+require 'world_objects/movement/horizontal'
 
 class Bullet
   include WorldObject

@@ -17,7 +17,12 @@ class Game
     @world            = opts.fetch(:world, default_world)
     @displayer.world  = @world
     @player_spaceship = default_spaceship
-    test_enemy = Enemy.new(@world.width - 10, 20, { [ 0, 0 ] => "<===>"})
+    test_enemy = Enemy.new(
+      @world.width - 10,
+      20,
+      char_map: { [ 0, 0 ] => "<===>"},
+      hor_speed: -10
+    )
     @world.register_objects( [ @player_spaceship, test_enemy ] )
   end
 
@@ -65,7 +70,7 @@ class Game
     SpaceShip.new(
       (@world.width * (10.0/100)).ceil,  # Starting position relative to world size
       (@world.height * (50.0/100)).ceil,
-      SPACESHIP_CHAR_MAP
+      char_map: SPACESHIP_CHAR_MAP
     )
   end
 end

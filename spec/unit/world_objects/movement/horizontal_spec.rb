@@ -1,12 +1,17 @@
-require 'world_objects/movement/horizontal.rb'
+require 'world_object'
+require 'world_objects/movement/horizontal'
 
 describe WorldObjects::Movement::Horizontal do
-  let(:object_klass) { Class.new { include WorldObjects::Movement::Horizontal }}
-  let(:an_instance) { object_klass.new }
+  let(:object_klass) do
+    Class.new do
+      include WorldObject
+      include WorldObjects::Movement::Horizontal
+    end
+  end
+
+  let(:an_instance) { object_klass.new(0, 0) }
 
   it 'has an accessor for hor_speed' do
-    Class.new { include WorldObjects::Movement::Horizontal }
-
     expect { an_instance.hor_speed }.not_to raise_error
   end
 

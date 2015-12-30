@@ -29,10 +29,10 @@ describe Bullet do
       b = Bullet.new(0, 0, fired_by: double, hor_speed: 3)
 
       b.update(0.5)
-      expect(b.anchor_x).to eq(1.5)
+      expect(b.anchor_x).to eq(1.5.round)
 
-      b.update(0.1)
-      expect(b.anchor_x).to eq(1.8)
+      b.update(0.4)
+      expect(b.anchor_x).to eq((1.5 + 3*0.4).round)
     end
   end
 
