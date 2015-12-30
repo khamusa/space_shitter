@@ -54,12 +54,11 @@ module WorldObject
 
     char_map.each do |(x, y), chars|
       max_y = [max_y, y].max
-      max_x = [max_x + chars.length - 1, x].max
+      max_x = [x + chars.length - 1, max_x].max
 
       min_y = [min_y, y].min
       min_x = [min_x, x].min
     end
-
     @bounding_box = BoundingBox.new min_x, min_y, max_x, max_y
   end
 
@@ -76,6 +75,13 @@ module WorldObject
     # Very rudimentary, bounding box comparison only
     other_object != self &&
     bbox_overlaps?(other_object.positioned_bounding_box)
+  end
+
+  # By default whenever an object leaves the viewport
+  # it will be destroyed. Classes including this module
+  # may decide otherwise by overriding this method.,
+  def obj_left_viewport!(direction)
+    destroy!
   end
 
   private
