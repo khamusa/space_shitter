@@ -92,7 +92,7 @@ describe World do
       a_world.send(:test_object_leaving_viewport, spaceship_1)
     end
 
-    context 'when an object leave the screen' do
+    context 'when an object leaves the screen' do
       it 'from the left, sends an "obj_left_viewport!" event to the object with a :left parameter' do
         spaceship_1 = SpaceShip.new(0, 0,
           char_map: { [-1, 0] => '-' })
@@ -177,21 +177,32 @@ describe World do
   end
 
   describe '#garbage_collect!' do
-    it 'removes objects that have been destroyed' do
-      spaceship_1 = SpaceShip.new(1, 1)
-      spaceship_1.destroy!
-      a_world.register_objects([ spaceship_1 ])
-      a_world.garbage_collect!
+    subject(:garbage_collect) { a_world.garbage_collect! }
+    let(:a_world)             { World.new 220, 560, [a_spaceship] }
+    let(:a_spaceship)         { SpaceShip.new(1, 1) }
 
-      expect(a_world.objects).not_to include(spaceship_1)
+    context 'when a world object has been destroyed' do
+      before { a_spaceship.destroy! }
+
+      it 'removes the world object' do
+        expect { subject }.to change { a_world.objects.length }.by(-1)
+      end
     end
 
-    it 'does not remove objects that have not been destroyed' do
-      spaceship_1 = SpaceShip.new(1, 1)
-      a_world.register_objects([ spaceship_1 ])
-      a_world.garbage_collect!
+    context 'when a world object has not been destroyed' do
+      it 'is kept' do
+        expect { subject }.not_to change { a_world.objects.length }
+      end
+    end
 
-      expect(a_world.objects).to include(spaceship_1)
+    context 'when an object collides with another object' do
+      let(:a_world)             { World.new 220, 560, [a_spaceship, collider] }
+      let(:collider) { SpaceShip.new(*a_spaceship.position) }
+
+      it 'removes both collided objects' do
+        expect { subject }.
+          to change { a_world.objects.length }.by(-2)
+      end
     end
   end
 end

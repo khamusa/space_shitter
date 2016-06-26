@@ -3,10 +3,10 @@ class World
   attr_reader :width, :height
   attr_accessor :objects, :current_time
 
-  def initialize(width, height)
+  def initialize(width, height, initial_objects = [])
     @width        = width
     @height       = height
-    @objects      = []
+    @objects      = initial_objects
 
     @current_time = Time.now
   end
