@@ -1,4 +1,6 @@
 require 'curses'
+require 'set'
+
 class KeyboardInputHandler
   # this is our code though
 
@@ -7,8 +9,14 @@ class KeyboardInputHandler
     Curses.stdscr.keypad = true
   end
 
-  def get_player_action
-    action_from_key(Curses.getch)
+  def get_player_actions
+    actions = Set.new
+
+    while (char = Curses.getch) != nil
+      actions.add action_from_key char
+    end
+
+    actions
   end
 
   private

@@ -53,7 +53,7 @@ describe Game do
     before do
       allow(a_displayer).to receive(:game_tick)
       allow(game.world).to receive(:game_tick)
-      allow(input_handler).to receive(:get_player_action)
+      allow(input_handler).to receive(:get_player_actions).and_return([])
     end
 
     subject { game.main_loop }

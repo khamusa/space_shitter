@@ -44,19 +44,21 @@ class Game
   end
 
   def process_user_action
-    case @input_handler.get_player_action
-    when :left
-      @player_spaceship.move(-2, 0)
-    when :right
-      @player_spaceship.move(2, 0)
-    when :up
-      @player_spaceship.move(0, -1)
-    when :down
-      @player_spaceship.move(0, 1)
-    when :fire
-      @world.register_objects(
-        @player_spaceship.fire!
-      )
+    @input_handler.get_player_actions.each do |action|
+      case action
+      when :left
+        @player_spaceship.move(-2, 0)
+      when :right
+        @player_spaceship.move(2, 0)
+      when :up
+        @player_spaceship.move(0, -1)
+      when :down
+        @player_spaceship.move(0, 1)
+      when :fire
+        @world.register_objects(
+          @player_spaceship.fire!
+        )
+      end
     end
   end
 
