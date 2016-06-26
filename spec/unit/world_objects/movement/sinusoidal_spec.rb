@@ -1,3 +1,4 @@
+require 'spec_helper'
 require 'world_object'
 require 'world_objects/movement/sinusoidal.rb'
 

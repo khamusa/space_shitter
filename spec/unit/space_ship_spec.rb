@@ -1,3 +1,4 @@
+require 'spec_helper'
 require_relative '../../lib/world_objects/space_ship'
 
 describe SpaceShip do
