@@ -38,10 +38,6 @@ module WorldObject
     @anchor_y = @anchor_y + offset_y
   end
 
-  def char_map
-    @char_map
-  end
-
   def destroy!
     @destroyed = true
   end
