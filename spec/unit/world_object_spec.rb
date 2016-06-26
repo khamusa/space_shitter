@@ -86,14 +86,9 @@ describe WorldObject do
 
   describe '#obj_left_viewport!' do
     let(:an_instance) { an_instance = dummy_klass.new(0,0) }
-    it 'is defined' do
-      expect { an_instance.obj_left_viewport! }.
-        not_to raise_error(NoMethodError)
-    end
-
     it 'accepts a direction parameter' do
       expect { an_instance.obj_left_viewport!(:left) }.
-        not_to raise_error(ArgumentError)
+        not_to raise_error
     end
 
     it 'destroys itself by default' do
