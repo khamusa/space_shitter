@@ -28,7 +28,7 @@ class Game
 
   def start
     begin
-      main_loop
+      loop { main_loop }
     rescue Interrupt => e
       @displayer.say_bye
     end
@@ -37,12 +37,10 @@ class Game
   private
 
   def main_loop
-    loop do
-      displayer.game_tick
-      world.game_tick
-      process_user_action
-      sleep(0.007)
-    end
+    displayer.game_tick
+    world.game_tick
+    process_user_action
+    sleep(0.007)
   end
 
   def process_user_action
