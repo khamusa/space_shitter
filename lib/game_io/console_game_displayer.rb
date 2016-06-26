@@ -67,6 +67,8 @@ class ConsoleGameDisplayer
     @menu_win.addstr("The Spaceshitter Game")
     @menu_win.setpos(2, 1)
     @menu_win.addstr "World size is #{world_width}x#{world_height}"
+    @menu_win.setpos(3, 1)
+    @menu_win.addstr "Objects in world: #{world.objects.count}   "
   end
 
   def draw_objects(drawable_objects)
