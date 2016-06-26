@@ -17,6 +17,10 @@ module WorldObject
     @anchor_y.round
   end
 
+  def position
+    [anchor_x, anchor_y]
+  end
+
   def initialize(anchor_x, anchor_y, options = {})
     @anchor_x = anchor_x
     @anchor_y = anchor_y

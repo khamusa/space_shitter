@@ -9,6 +9,10 @@ describe WorldObject do
     end
   end
 
+  let(:xpos) { 0.333 }
+  let(:ypos) { 33.777 }
+  let(:an_object) { dummy_klass.new(xpos, ypos) }
+
   describe "#initialize" do
     it 'accepts 3 parameters' do
       expect { dummy_klass.new(0, 0, {}) }.not_to raise_error
@@ -39,19 +43,26 @@ describe WorldObject do
     end
   end
 
-  describe 'anchor_x and anchor_y reader methods' do
-    it 'returns coordinates rounded to the closest number' do
-      an_object = dummy_klass.new(0.333, 33.777)
-      expect(an_object.anchor_x).to eq(0)
-      expect(an_object.anchor_y).to eq(34)
+  describe '#position' do
+    it 'returns rounded coordinates to closest number' do
+      expect(an_object.position).to eq([0, 34])
     end
 
     it 'stores a real number internally' do
-      an_object = dummy_klass.new(0.5, 1.5)
-      x = an_object.instance_variable_get(:@anchor_x)
-      expect(x).to eq(0.5)
-      y = an_object.instance_variable_get(:@anchor_y)
-      expect(y).to eq(1.5)
+      an_object.move(0.2, -0.28)
+      expect(an_object.position).to eq([1, 33])
+    end
+  end
+
+  describe '#anchor_x' do
+    it 'returns the same value as the x coordinate of #position' do
+      expect(an_object.anchor_x).to eq(an_object.position[0])
+    end
+  end
+
+  describe '#ancor_y' do
+    it 'returns the same value as the y coordinate of #position' do
+      expect(an_object.anchor_y).to eq(an_object.position[1])
     end
   end
 
